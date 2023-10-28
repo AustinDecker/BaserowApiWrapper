@@ -21,35 +21,35 @@ SMCBaserow.getRoom = async function(rowID){
 }
 
 SMCBaserow.getEventsTable = async function(options){
-    return await getTable(212081, options)();
+    return await this.getTable(212081, options)();
 }
 
 SMCBaserow.getEvent = async function(rowID){
-    return await getRow(212081, rowID)();
+    return await this.getRow(212081, rowID)();
 }
 
 SMCBaserow.getGearsTable = async function(options){
-    return await getTable(212082, options)();
+    return await this.getTable(212082, options)();
 }
 
 SMCBaserow.getGear = async function(rowID){
-    return await getRow(212082, rowID)();
+    return await this.getRow(212082, rowID)();
 }
 
 SMCBaserow.getManufacturersTable = async function(options){
-    return await getTable(212083, options)();
+    return await this.getTable(212083, options)();
 }
 
 SMCBaserow.getManufacturer = async function(rowID){
-    return await getRow(212083, rowID)();
+    return await this.getRow(212083, rowID)();
 }
 
 SMCBaserow.getClassesTable = async function(options){
-    return await getTable(212084, options)();
+    return await this.getTable(212084, options)();
 }
 
 SMCBaserow.getClass = async function(rowID){
-    return await getRow(212084, rowID)();
+    return await this.getRow(212084, rowID)();
 }
 
 export default SMCBaserow;
