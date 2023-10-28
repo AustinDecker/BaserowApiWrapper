@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default function Baserow(api_token){
-    const baserowInstance = {
+    let baserowInstance = {
         api_token,
         
        getTable,
@@ -22,7 +22,7 @@ export default function Baserow(api_token){
                     method: "get",
                     headers: {
                         "Authorization": api_token
-                    }
+                    },
                 })
                 return response.data;
             } catch (error) {
