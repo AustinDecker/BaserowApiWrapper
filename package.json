@@ -5,7 +5,7 @@
   "name": "baserowapiwrapper",
   "type":"module",
   "version": "1.0.0",
-  "main": "./src/Baserow.js",
+  "main": "index.js",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
