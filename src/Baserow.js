@@ -2,13 +2,11 @@ import axios from "axios";
 
 export default function Baserow(api_token){
     let baserowInstance = {
-        api_token,
-        
-       getTable,
-       getRow,
-       createRow,
-       updateRow,
-       deleteRow
+        getTable,
+        getRow,
+        createRow,
+        updateRow,
+        deleteRow
 
     }
     return baserowInstance;
