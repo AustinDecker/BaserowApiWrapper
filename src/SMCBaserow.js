@@ -1,6 +1,6 @@
 import Baserow from "../src/Baserow.js";
 
-const API_KEY = "Token TzDtpdxtxo0iUq8HKNB2Eisv433d2Auy";
+const API_KEY = "Token TzDtpdxtxo0iUq8HKNB2Eisv433d2Auy"; //would be moved to .env later
 
 const TableIDs = 
 {
@@ -13,17 +13,27 @@ const TableIDs =
 };
 
 function SMCBaserow(){
-    let SMCBaseRowInstance = Object.assign(Baserow(API_KEY), {
+    let SMCBaseRowInstance = Object.assign({}, Baserow(API_KEY), {
+        next: null,
+        prev: null,
+
         getSMCPeopleTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCPEOPLE, options)();
+            let data = await this.getTable(TableIDs.SMCPEOPLE, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+            return data;
         },
 
         getSMCPerson: async function(rowID){
-            return await this.getTable(TableIDs.SMCPEOPLE, options)();
+            return await this.getRow(TableIDs.SMCPEOPLE, rowID)();
         },
         
         getRoomsTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCROOMS, options)();
+            let data = await this.getTable(TableIDs.SMCROOMS, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+
+            return data;
         },
         
         getRoom: async function(rowID){
@@ -31,7 +41,11 @@ function SMCBaserow(){
         },
         
         getEventsTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCEVENTS, options)();
+            let data = await this.getTable(TableIDs.SMCEVENTS, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+
+            return data;
         },
         
         getEvent: async function(rowID){
@@ -39,7 +53,11 @@ function SMCBaserow(){
         },
         
         getGearsTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCGEARS, options)();
+            let data = await this.getTable(TableIDs.SMCGEARS, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+
+            return data;
         },
         
         getGear: async function(rowID){
@@ -47,7 +65,11 @@ function SMCBaserow(){
         },
         
         getManufacturersTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCMANUFACTURERS, options)();
+            let data = await this.getTable(TableIDs.SMCMANUFACTURERS, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+
+            return data;
         },
         
         getManufacturer: async function(rowID){
@@ -55,7 +77,11 @@ function SMCBaserow(){
         },
         
         getClassesTable: async function(options = {}){
-            return await this.getTable(TableIDs.SMCCLASSES, options)();
+            let data = await this.getTable(TableIDs.SMCCLASSES, options)();
+            setNext(data.next);
+            setPrev(data.prev);
+
+            return data;
         },
         
         getClass: async function(rowID){
@@ -63,6 +89,14 @@ function SMCBaserow(){
         },
     })
     return SMCBaseRowInstance;
+
+    //private helper functions
+    function setNext(url){
+        SMCBaseRowInstance.next = url;
+    }
+    function setPrev(url){
+        SMCBaseRowInstance.prev = url
+    }
 }
 
 export default SMCBaserow;

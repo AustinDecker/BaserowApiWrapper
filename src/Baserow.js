@@ -6,7 +6,14 @@ export default function Baserow(api_token){
         getRow,
         createRow,
         updateRow,
-        deleteRow
+        deleteRow,
+        getNextPage: async function(url){
+            if(!url)
+                return;
+            
+            let options = parseUrl(url);
+            return await this.getTable(options.tableID, options)();
+        }
 
     }
     return baserowInstance;
@@ -103,5 +110,20 @@ export default function Baserow(api_token){
                 console.log(error.message);
             }
         }
+    }
+
+    function parseUrl(url){
+        let urlParts = url.split("/")
+        let query = urlParts[urlParts.length - 1].split("?")[1];
+        let params = query.split("&");
+
+        let options = {};
+        options.tableID = urlParts[7];
+
+        params.forEach(param => {
+            let paramPair = param.split("=");
+                options[`${paramPair[0]}`] = paramPair[1];
+        })
+        return options;
     }
 }
