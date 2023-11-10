@@ -19,7 +19,7 @@ export default function Baserow(api_token){
         updateRow,
         deleteRow,
         getAllPages: async function(tableID, {search="", size=100, page=1}){
-            let data = await getTable(tableID, {search, size, page})();
+            let data = await getTable(tableID, {search, size, page});
             let next = data.next;
             let pages = [data.results];
 
@@ -155,6 +155,6 @@ export default function Baserow(api_token){
             return;
         
         let options = utils.parseUrl(url);
-        return await getTable(options.tableID, options)();
+        return await getTable(options.tableID, options);
     }
 }
