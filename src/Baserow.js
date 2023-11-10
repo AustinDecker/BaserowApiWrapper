@@ -1,4 +1,5 @@
 import axios from "axios";
+import utils from "./Utils.js"
 
 export default function Baserow(api_token){
     let baserowInstance = {
@@ -11,7 +12,7 @@ export default function Baserow(api_token){
             if(!url)
                 return;
             
-            let options = parseUrl(url);
+            let options = utils.parseUrl(url);
             return await this.getTable(options.tableID, options)();
         }
 
@@ -112,18 +113,5 @@ export default function Baserow(api_token){
         }
     }
 
-    function parseUrl(url){
-        let urlParts = url.split("/")
-        let query = urlParts[urlParts.length - 1].split("?")[1];
-        let params = query.split("&");
-
-        let options = {};
-        options.tableID = urlParts[7];
-
-        params.forEach(param => {
-            let paramPair = param.split("=");
-                options[`${paramPair[0]}`] = paramPair[1];
-        })
-        return options;
-    }
+    
 }

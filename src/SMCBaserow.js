@@ -13,7 +13,9 @@ const TableIDs =
 };
 
 function SMCBaserow(){
-    let SMCBaseRowInstance = Object.assign({}, Baserow(API_KEY), {
+
+    let SMCBaseRowInstance = Object.create(Baserow(API_KEY));
+    SMCBaseRowInstance = Object.assign(SMCBaseRowInstance, {
         next: null,
         prev: null,
 
@@ -87,7 +89,7 @@ function SMCBaserow(){
         getClass: async function(rowID){
             return await this.getRow(TableIDs.SMCCLASSES, rowID)();
         },
-    })
+    })  
     return SMCBaseRowInstance;
 
     //private helper functions
@@ -98,5 +100,4 @@ function SMCBaserow(){
         SMCBaseRowInstance.prev = url
     }
 }
-
 export default SMCBaserow;
