@@ -23,7 +23,7 @@ function SMCBaserow(){
         },
 
         getSMCPerson: async function(rowID){
-            return await this.getRow(TableIDs.SMCPEOPLE, rowID)();
+            return await this.getRow(TableIDs.SMCPEOPLE, rowID);
         },
         
         getRoomsTable: async function(options = {}){
@@ -32,7 +32,7 @@ function SMCBaserow(){
         },
         
         getRoom: async function(rowID){
-            return await this.getRow(TableIDs.SMCROOMS, rowID)();
+            return await this.getRow(TableIDs.SMCROOMS, rowID);
         },
         
         getEventsTable: async function(options = {}){
@@ -41,7 +41,7 @@ function SMCBaserow(){
         },
         
         getEvent: async function(rowID){
-            return await this.getRow(TableIDs.SMCEVENTS, rowID)();
+            return await this.getRow(TableIDs.SMCEVENTS, rowID);
         },
         
         getGearsTable: async function(options = {}){
@@ -50,7 +50,7 @@ function SMCBaserow(){
         },
         
         getGear: async function(rowID){
-            return await this.getRow(TableIDs.SMCGEARS, rowID)();
+            return await this.getRow(TableIDs.SMCGEARS, rowID);
         },
         
         getManufacturersTable: async function(options = {}){
@@ -59,7 +59,7 @@ function SMCBaserow(){
         },
         
         getManufacturer: async function(rowID){
-            return await this.getRow(TableIDs.SMCMANUFACTURERS, rowID)();
+            return await this.getRow(TableIDs.SMCMANUFACTURERS, rowID);
         },
         
         getClassesTable: async function(options = {}){
@@ -68,7 +68,7 @@ function SMCBaserow(){
         },
         
         getClass: async function(rowID){
-            return await this.getRow(TableIDs.SMCCLASSES, rowID)();
+            return await this.getRow(TableIDs.SMCCLASSES, rowID);
         },
     })  
     return SMCBaseRowInstance;

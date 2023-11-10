@@ -26,96 +26,87 @@ export default function Baserow(api_token){
     return baserowInstance;
 
     //private helper functions
-    function getTable(tableID, {search = "", size=100, page=1}){
-        return async function(){
-            try {
-                let response = await axios({
-                    url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true&search=${search}&size=${size}&page=${page}`,
-                    method: "get",
-                    headers: {
-                        "Authorization": api_token
-                    },
-                })
-                return response.data;
-            } catch (error) {
-                console.log(error.message);
-            }
-            
+    async function getTable(tableID, { search = "", size = 100, page = 1 }) {
+        try {
+            let response = await axios({
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true&search=${search}&size=${size}&page=${page}`,
+                method: "get",
+                headers: {
+                    "Authorization": api_token
+                },
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message);
         }
     }
 
-    function getRow(tableID, rowID){
-        return async function(){
-            try {
-                let response = await axios({
-                    url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}/?user_field_names=true`,
-                    method: "get",
-                    headers: {
-                        "Authorization": api_token
-                    }
-                })
-                return response.data;
-            } catch (error) {
-                console.log(error.message);
-            }
-            
+    async function getRow(tableID, rowID) {
+        try {
+            let response = await axios({
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}/?user_field_names=true`,
+                method: "get",
+                headers: {
+                    "Authorization": api_token
+                }
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message);
+        }
+
+    }
+
+    async function createRow(tableID, row_fields) {
+
+        try {
+            let response = await axios({
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true`,
+                method: "post",
+                headers: {
+                    "Authorization": api_token,
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(row_fields)
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message);
+        }
+
+    }
+
+    async function updateRow(tableID, rowID, row_fields) {
+        try {
+            let response = await axios({
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
+                method: "patch",
+                headers: {
+                    "Authorization": api_token,
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(row_fields)
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message);
         }
     }
 
-    function createRow(tableID, row_fields){
-        return async function(){
-            try {
-                let response = await axios({
-                    url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true`,
-                    method: "post",
-                    headers: {
-                        "Authorization": api_token,
-                        "Content-Type": "application/json"
-                    },
-                    data: JSON.stringify(row_fields)
-                })
-                return response.data;
-            } catch (error) {
-                console.log(error.message);
-            }
-        }
-    }
-
-    function updateRow(tableID, rowID, row_fields){
-        return async function(){
-            try {
-                let response = await axios({
-                    url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
-                    method: "patch",
-                    headers: {
-                        "Authorization": api_token,
-                        "Content-Type": "application/json"
-                    },
-                    data: JSON.stringify(row_fields)
-                })
-                return response.data;
-            } catch (error) {
-                console.log(error.message);
-            }
-        }
-    }
-
-    function deleteRow(tableID, rowID){
-        return async function(){
-            try {
-                let response = await axios({
-                    url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
-                    method: "delete",
-                    headers: {
-                        "Authorization": api_token,
-                        "Content-Type": "application/json"
-                    },
-                    data: JSON.stringify(row_fields)
-                })
-                return response.data;
-            } catch (error) {
-                console.log(error.message);
-            }
+    async function deleteRow(tableID, rowID) {
+        try {
+            let response = await axios({
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
+                method: "delete",
+                headers: {
+                    "Authorization": api_token,
+                    "Content-Type": "application/json"
+                },
+                data: JSON.stringify(row_fields)
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message);
         }
     }
 
@@ -126,6 +117,4 @@ export default function Baserow(api_token){
         let options = utils.parseUrl(url);
         return await getTable(options.tableID, options)();
     }
-
-    
 }
