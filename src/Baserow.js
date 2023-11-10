@@ -1,7 +1,17 @@
 import axios from "axios";
 import utils from "./Utils.js"
 
+/**
+ *
+ * @param {*} api_token 
+ * @returns {*} baserowInstance
+ * @description function which returns a baserowInstance object associated with the api_token
+ * 
+ */
 export default function Baserow(api_token){
+    /**
+     * 
+     */
     let baserowInstance = {
         getTable,
         getRow,
@@ -26,6 +36,12 @@ export default function Baserow(api_token){
     return baserowInstance;
 
     //private helper functions
+    /**
+     * 
+     * @param {number} tableID 
+     * @param {*} options
+     * @returns {*} json data
+     */
     async function getTable(tableID, { search = "", size = 100, page = 1 }) {
         try {
             let response = await axios({
@@ -41,6 +57,12 @@ export default function Baserow(api_token){
         }
     }
 
+    /**
+     * 
+     * @param {number} tableID 
+     * @param {number} rowID 
+     * @returns json data
+     */
     async function getRow(tableID, rowID) {
         try {
             let response = await axios({
@@ -56,7 +78,12 @@ export default function Baserow(api_token){
         }
 
     }
-
+    /**
+     * 
+     * @param {*} tableID 
+     * @param {*} row_fields 
+     * @returns json data
+     */
     async function createRow(tableID, row_fields) {
 
         try {
@@ -76,6 +103,13 @@ export default function Baserow(api_token){
 
     }
 
+    /**
+     * 
+     * @param {*} tableID 
+     * @param {*} rowID 
+     * @param {*} row_fields 
+     * @returns json data
+     */
     async function updateRow(tableID, rowID, row_fields) {
         try {
             let response = await axios({
@@ -93,6 +127,12 @@ export default function Baserow(api_token){
         }
     }
 
+    /**
+     * 
+     * @param {*} tableID 
+     * @param {*} rowID 
+     * @returns json data
+     */
     async function deleteRow(tableID, rowID) {
         try {
             let response = await axios({
