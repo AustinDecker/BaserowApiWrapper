@@ -8,12 +8,18 @@ export default function Baserow(api_token){
         createRow,
         updateRow,
         deleteRow,
-        getNextPage: async function(url){
-            if(!url)
-                return;
-            
-            let options = utils.parseUrl(url);
-            return await this.getTable(options.tableID, options)();
+        getAllPages: async function(tableID, {search="", size=100, page=1}){
+            let data = await getTable(tableID, {search, size, page})();
+            let next = data.next;
+            let pages = [data.results];
+
+            while(next !== null){
+                let data = await getNextPage(next);
+                pages.push(data.results);
+    
+                next = data.next;
+            }
+            return pages;
         }
 
     }
@@ -111,6 +117,14 @@ export default function Baserow(api_token){
                 console.log(error.message);
             }
         }
+    }
+
+    async function getNextPage(url){
+        if(!url)
+            return;
+        
+        let options = utils.parseUrl(url);
+        return await getTable(options.tableID, options)();
     }
 
     
