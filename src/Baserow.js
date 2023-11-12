@@ -59,10 +59,10 @@ export default function Baserow(api_token){
     }
 
     /**
-     * 
+     * This gets the data from the specified table that follows the given filters
      * @param {number} tableID
      * @param {Object} filters
-     * @retunrs json data
+     * @returns json data
      */
     async function getFilteredTable(tableID, { size = 100, page = 1, filters = "" }) {
         try {
