@@ -32,6 +32,22 @@ function SMCBaserow(){
             return data;
         },
 
+        getAllPeopleWithRole: async function(role, options = {}){
+
+            let roleFilter = {
+                "filter_type": "AND",
+                "filters":[
+                    { "type":"contains", "field":"Role", "value":role }
+                ],
+                "groups":[]
+            }
+
+            options.filters = JSON.stringify(roleFilter);
+
+            let data = await this.getFilteredTable(TableIDs.SMCPEOPLE, options);
+            return data;
+        },
+
         /**
          * 
          * @param {*} rowID 
@@ -48,6 +64,26 @@ function SMCBaserow(){
          */
         getRoomsTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCROOMS, options);
+            return data;
+        },
+
+        /**
+         * 
+         * @param {*} options 
+         * @returns json data
+         */
+        getBookableStudioRooms: async function(options = {}){
+            let studioRoomsFilter = {
+                "filter_type":"AND",
+                "filters":[
+                    {"type":"boolean","field":"Bookable","value":"1"},
+                    {"type":"contains","field":"Purpose","value":"Production"}],
+                "groups":[]
+            }
+
+            options.filters = JSON.stringify(studioRoomsFilter);
+
+            let data = await this.getFilteredTable(TableIDs.SMCROOMS, options);
             return data;
         },
         
