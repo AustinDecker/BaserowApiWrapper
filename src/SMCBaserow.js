@@ -68,20 +68,46 @@ function SMCBaserow(){
         },
 
         /**
-         * 
+         * gets rooms with the designated purpose, should be used for Rehearsal Spaces and Production purposes
          * @param {*} options 
          * @returns json data
          */
-        getBookableStudioRooms: async function(options = {}){
-            let studioRoomsFilter = {
+        getBookableRooms: async function(purpose, options = {}){
+            let bookableRoomsFilter = {
                 "filter_type":"AND",
                 "filters":[
-                    {"type":"boolean","field":"Bookable","value":"1"},
-                    {"type":"contains","field":"Purpose","value":"Production"}],
+                    { "type":"boolean", "field":"Bookable", "value":"1" },
+                    { "type":"contains", "field":"Purpose", "value":purpose }
+                ],
                 "groups":[]
             }
+            options.filters = JSON.stringify(bookableRoomsFilter);
 
-            options.filters = JSON.stringify(studioRoomsFilter);
+            let data = await this.getFilteredTable(TableIDs.SMCROOMS, options);
+            return data;
+        },
+
+        /**
+         * gets edit and collab rooms (more specific query so its in a different function)
+         * @param {*} purpose 
+         * @returns json object
+         */
+        getEditAndCollabRooms: async function(options = {}){
+            let editAndCollabRoomsFilter = {
+                "filter_type":"AND",
+                "filters":[
+                    {"type":"boolean","field":"Bookable","value":"1"}
+                ],
+                "groups":[{
+                    "filter_type":"OR",
+                    "filters":[
+                        { "type":"contains", "field":"Purpose", "value":"Edit Suites" },
+                        { "type":"contains", "field":"Purpose", "value":"Meeting" }
+                    ],
+                    "groups":[]
+                }]
+            }
+            options.filters = JSON.stringify(editAndCollabRoomsFilter);
 
             let data = await this.getFilteredTable(TableIDs.SMCROOMS, options);
             return data;
