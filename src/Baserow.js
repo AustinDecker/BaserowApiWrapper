@@ -43,35 +43,7 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = "", size = 100, page = 1, filters=""}) {
-        try {
-            let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
-                method: "get",
-                params: {
-                    user_field_names: true,
-                    'search': search,
-                    'size': size,
-                    'page': page,
-                    'filters': filters,
-                },
-                headers: {
-                    "Authorization": api_token
-                },
-            })
-            return response.data;
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
-
-    /**
-     * This gets the data from the specified table that follows the given filters
-     * @param {number} tableID
-     * @param {Object} filters
-     * @returns json data
-     */
-    async function getFilteredTable(tableID, { size = 100, page = 1, filters = "" }) {
+    async function getTable(tableID, { search = "", size = 100, page = 1, filters = "" }) {
         try {
             let response = await axios({
                 url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
@@ -91,7 +63,6 @@ export default function Baserow(api_token){
             console.log(error.message);
         }
     }
-
     /**
      * 
      * @param {number} tableID 
