@@ -14,17 +14,17 @@ export default function Baserow(api_token){
      */
     let baserowInstance = {
         getTable,
-        getFilteredTable,
         getRow,
         createRow,
         updateRow,
         deleteRow,
-        getAllPages: async function(tableID, {search="", size=100, page=1, filters=""}){
+        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
             let data = await getTable(tableID, {search, size, page, filters});
             let next = data.next;
             let pages = [data.results];
 
             while(next !== null){
+                console.log(next);
                 let data = await getNextPage(next);
                 pages.push(data.results);
     
@@ -43,13 +43,14 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = "", size = 100, page = 1, filters = "" }) {
+    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null }) {
         try {
             let response = await axios({
                 url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
                 method: "get",
-                params: {
-                    user_field_names: true,
+                params:{
+                    'user_field_names': true,
+                    'search': search,
                     'size': size,
                     'page': page,
                     'filters': filters
@@ -161,6 +162,7 @@ export default function Baserow(api_token){
             return;
         
         let options = utils.parseUrl(url);
-        return await getTable(options.tableID, options);
+        let data = await getTable(options.tableID, options);
+        return data;
     }
 }

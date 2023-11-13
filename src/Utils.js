@@ -27,5 +27,9 @@ function createOptions(tableID, params){
         let paramPair = param.split("=");
             options[`${paramPair[0]}`] = paramPair[1];
     })
+    
+    if(options.filters){
+        options.filters = decodeURIComponent(options.filters);
+    }
     return options;
 }
