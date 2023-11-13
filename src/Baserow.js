@@ -19,8 +19,8 @@ export default function Baserow(api_token){
         createRow,
         updateRow,
         deleteRow,
-        getAllPages: async function(tableID, {search="", size=100, page=1}){
-            let data = await getTable(tableID, {search, size, page});
+        getAllPages: async function(tableID, {search="", size=100, page=1, filters=""}){
+            let data = await getTable(tableID, {search, size, page, filters});
             let next = data.next;
             let pages = [data.results];
 

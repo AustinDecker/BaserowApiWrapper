@@ -44,7 +44,7 @@ function SMCBaserow(){
 
             options.filters = JSON.stringify(roleFilter);
 
-            let data = await this.getFilteredTable(TableIDs.SMCPEOPLE, options);
+            let data = await this.getAllPages(TableIDs.SMCPEOPLE, options);
             return data;
         },
 
@@ -83,7 +83,7 @@ function SMCBaserow(){
             }
             options.filters = JSON.stringify(bookableRoomsFilter);
 
-            let data = await this.getFilteredTable(TableIDs.SMCROOMS, options);
+            let data = await this.getAllPages(TableIDs.SMCROOMS, options);
             return data;
         },
 
@@ -109,7 +109,7 @@ function SMCBaserow(){
             }
             options.filters = JSON.stringify(editAndCollabRoomsFilter);
 
-            let data = await this.getFilteredTable(TableIDs.SMCROOMS, options);
+            let data = await this.getAllPages(TableIDs.SMCROOMS, options);
             return data;
         },
         
