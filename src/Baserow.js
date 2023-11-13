@@ -43,11 +43,18 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = "", size = 100, page = 1 }) {
+    async function getTable(tableID, { search = "", size = 100, page = 1, filters=""}) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true&search=${search}&size=${size}&page=${page}`,
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
                 method: "get",
+                params: {
+                    user_field_names: true,
+                    'search': search,
+                    'size': size,
+                    'page': page,
+                    'filters': filters,
+                },
                 headers: {
                     "Authorization": api_token
                 },
