@@ -25,10 +25,10 @@ export default function Baserow(api_token){
 
             while(next !== null){
                 console.log(next);
-                let data = await getNextPage(next);
-                pages.push(data.results);
+                let newData = await getNextPage(next);
+                pages.push(newData.results);
     
-                next = data.next;
+                next = newData.next;
             }
             return pages;
         }
@@ -43,7 +43,7 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null }) {
+    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null },) {
         try {
             let response = await axios({
                 url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
@@ -161,8 +161,17 @@ export default function Baserow(api_token){
         if(!url)
             return;
         
-        let options = utils.parseUrl(url);
-        let data = await getTable(options.tableID, options);
-        return data;
+        try {
+            let response = await axios({
+                url: url,
+                method: "get",
+                headers: {
+                    "Authorization": api_token
+                },
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 }
