@@ -18,16 +18,17 @@ export default function Baserow(api_token){
         createRow,
         updateRow,
         deleteRow,
-        getAllPages: async function(tableID, {search="", size=100, page=1}){
-            let data = await getTable(tableID, {search, size, page});
+        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
+            let data = await getTable(tableID, {search, size, page, filters});
             let next = data.next;
             let pages = [data.results];
 
             while(next !== null){
-                let data = await getNextPage(next);
-                pages.push(data.results);
+                console.log(next);
+                let newData = await getNextPage(next);
+                pages.push(newData.results);
     
-                next = data.next;
+                next = newData.next;
             }
             return pages;
         }
@@ -42,11 +43,18 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = "", size = 100, page = 1 }) {
+    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null },) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true&search=${search}&size=${size}&page=${page}`,
+                url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
                 method: "get",
+                params:{
+                    'user_field_names': true,
+                    'search': search,
+                    'size': size,
+                    'page': page,
+                    'filters': filters
+                },
                 headers: {
                     "Authorization": api_token
                 },
@@ -56,7 +64,6 @@ export default function Baserow(api_token){
             console.log(error.message);
         }
     }
-
     /**
      * 
      * @param {number} tableID 
@@ -154,7 +161,17 @@ export default function Baserow(api_token){
         if(!url)
             return;
         
-        let options = utils.parseUrl(url);
-        return await getTable(options.tableID, options);
+        try {
+            let response = await axios({
+                url: url,
+                method: "get",
+                headers: {
+                    "Authorization": api_token
+                },
+            })
+            return response.data;
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 }
