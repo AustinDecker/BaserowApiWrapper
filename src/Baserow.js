@@ -1,5 +1,4 @@
 import axios from "axios";
-import utils from "./Utils.js"
 
 const API_ENDPOINT = "https://api.baserow.io/api/database/rows/table/";
 /**
@@ -184,7 +183,7 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }
 }
