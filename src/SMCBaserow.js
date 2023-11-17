@@ -1,4 +1,5 @@
 import Baserow from "../src/Baserow.js";
+import { SmcPeopleViews, RoomsView, EventsView } from "./Views.js";
 
 const API_KEY = "Token TzDtpdxtxo0iUq8HKNB2Eisv433d2Auy"; //would be moved to .env later
 
@@ -93,21 +94,7 @@ function SMCBaserow(){
          * @returns json object
          */
         getEditAndCollabRooms: async function(options = {}){
-            let editAndCollabRoomsFilter = {
-                "filter_type":"AND",
-                "filters":[
-                    {"type":"boolean","field":"Bookable","value":"1"}
-                ],
-                "groups":[{
-                    "filter_type":"OR",
-                    "filters":[
-                        { "type":"contains", "field":"Purpose", "value":"Edit Suites" },
-                        { "type":"contains", "field":"Purpose", "value":"Meeting" }
-                    ],
-                    "groups":[]
-                }]
-            }
-            options.filters = JSON.stringify(editAndCollabRoomsFilter);
+            options.filters = JSON.stringify(RoomsView.BOOKABLE_EDIT_COLLAB_ROOMS);
 
             let data = await this.getAllPages(TableIDs.SMCROOMS, options);
             return data;

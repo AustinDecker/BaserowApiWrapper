@@ -38,7 +38,7 @@ const SmcPeopleViews = {
 }
 
 const RoomsView = {
-    BOOKABLE_SMC_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"}],"groups":[{"filter_type":"AND","filters":[{"type":"multiple_select_has","field":"Purpose","value":"1100752"},{"type":"multiple_select_has","field":"Purpose","value":"1100754"},{"type":"multiple_select_has","field":"Purpose","value":"1100753"},{"type":"multiple_select_has_not","field":"Purpose","value":"1100751"},{"type":"multiple_select_has","field":"Purpose","value":"1100755"}],"groups":[]}]},
+    BOOKABLE_EDIT_COLLAB_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"}],"groups":[{"filter_type":"AND","filters":[{"type":"multiple_select_has","field":"Purpose","value":"1100752"},{"type":"multiple_select_has","field":"Purpose","value":"1100754"},{"type":"multiple_select_has","field":"Purpose","value":"1100753"},{"type":"multiple_select_has_not","field":"Purpose","value":"1100751"},{"type":"multiple_select_has","field":"Purpose","value":"1100755"}],"groups":[]}]},
     BOOKABLE_REHERSAL_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"},{"type":"multiple_select_has","field":"Purpose","value":"1100753"}],"groups":[]},
     BOOKABLE_STUDIO_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"},{"type":"multiple_select_has","field":"Purpose","value":"1100751"}],"groups":[]},
 }
