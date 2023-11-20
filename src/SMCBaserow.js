@@ -1,5 +1,4 @@
 import Baserow from "../src/Baserow.js";
-import { SmcPeopleViews, RoomsView, EventsView } from "./Views.js";
 
 const API_KEY = "Token TzDtpdxtxo0iUq8HKNB2Eisv433d2Auy"; //would be moved to .env later
 
@@ -33,22 +32,6 @@ function SMCBaserow(){
             return data;
         },
 
-        getAllPeopleWithRole: async function(role, options = {}){
-
-            let roleFilter = {
-                "filter_type": "AND",
-                "filters":[
-                    { "type":"contains", "field":"Role", "value":role }
-                ],
-                "groups":[]
-            }
-
-            options.filters = JSON.stringify(roleFilter);
-
-            let data = await this.getAllPages(TableIDs.SMCPEOPLE, options);
-            return data;
-        },
-
         /**
          * 
          * @param {*} rowID 
@@ -64,38 +47,6 @@ function SMCBaserow(){
          * @returns json data
          */
         getRoomsTable: async function(options = {}){
-            let data = await this.getAllPages(TableIDs.SMCROOMS, options);
-            return data;
-        },
-
-        /**
-         * gets rooms with the designated purpose, should be used for Rehearsal Spaces and Production purposes
-         * @param {*} options 
-         * @returns json data
-         */
-        getBookableRooms: async function(purpose, options = {}){
-            let bookableRoomsFilter = {
-                "filter_type":"AND",
-                "filters":[
-                    { "type":"boolean", "field":"Bookable", "value":"1" },
-                    { "type":"contains", "field":"Purpose", "value":purpose }
-                ],
-                "groups":[]
-            }
-            options.filters = JSON.stringify(bookableRoomsFilter);
-
-            let data = await this.getAllPages(TableIDs.SMCROOMS, options);
-            return data;
-        },
-
-        /**
-         * gets edit and collab rooms (more specific query so its in a different function)
-         * @param {*} purpose 
-         * @returns json object
-         */
-        getEditAndCollabRooms: async function(options = {}){
-            options.filters = JSON.stringify(RoomsView.BOOKABLE_EDIT_COLLAB_ROOMS);
-
             let data = await this.getAllPages(TableIDs.SMCROOMS, options);
             return data;
         },
