@@ -1,11 +1,13 @@
-import { SmcPeopleViews, RoomsView, EventsView } from "./Views";
-import SMCBaserow from "./SMCBaserow";
+import { SmcPeopleViews, RoomsView, EventsView } from "./Views.js";
+import SMCBaserow from "./SMCBaserow.js";
 
 const smcBaserowInstance = SMCBaserow();
 
 async function GetFaculty(){
     try {
-        return await smcBaserowInstance.getSMCPeopleTable({filters: SmcPeopleViews.FACULTY});
+        let pages = await smcBaserowInstance.getSMCPeopleTable({filters: JSON.stringify(SmcPeopleViews.FACULTY)});
+        return extractPages(pages);
+
     } catch (err) {
         console.log(err.message)
     }
@@ -13,7 +15,9 @@ async function GetFaculty(){
 
 async function GetStudents(){
     try {
-        return await smcBaserowInstance.getSMCPeopleTable({filters: SmcPeopleViews.ENROLLED_STUDENT})
+        let pages = await smcBaserowInstance.getSMCPeopleTable({ filters: JSON.stringify(SmcPeopleViews.ENROLLED_STUDENT) });
+        return extractPages(pages);
+
     } catch (err) {
         console.log(err.message)
     }
@@ -21,7 +25,8 @@ async function GetStudents(){
 
 async function GetBookableRooms(){
     try {
-        return await smcBaserowInstance.getSMCRoomsTable({filters: RoomsView.BOOKABLE_EDIT_COLLAB_ROOMS});
+        let pages = await smcBaserowInstance.getRoomsTable({filters: JSON.stringify(RoomsView.BOOKABLE_EDIT_COLLAB_ROOMS)});
+        return extractPages(pages);
     } catch (err) {
         console.log(err.message);
     }
@@ -37,8 +42,8 @@ async function GetPeopleByRole(role){
     }
 
     try{
-        let data = await smcBaserowInstance.getSMCPeopleTable({filters: JSON.stringify(roleFilter)});
-        return data;
+        let pages = await smcBaserowInstance.getSMCPeopleTable({filters: JSON.stringify(roleFilter)});
+        return extractPages(pages);
     } catch (err){
         console.log(err.message);
     }
@@ -46,10 +51,23 @@ async function GetPeopleByRole(role){
 
 async function GetUpcomingEvents(){
     try {
-        return await smcBaserowInstance.getEventsTable({filters: EventsView.UPCOMING})
+        let pages = await smcBaserowInstance.getEventsTable({filters: JSON.stringify(EventsView.UPCOMING)})
+        return extractPages(pages);
     } catch (err) {
         console.log(err.message);
     }
+}
+
+function extractPages(pages){
+    let allObjects = [];
+
+    pages.forEach((page) => {
+        page.forEach(object => {
+            allObjects.push(object);
+        })
+    })
+    return allObjects;
+
 }
 
 export default {
