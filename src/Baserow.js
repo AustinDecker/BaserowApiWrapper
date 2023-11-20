@@ -1,6 +1,6 @@
 import axios from "axios";
-import utils from "./Utils.js"
 
+const API_ENDPOINT = "https://api.baserow.io/api/database/rows/table/";
 /**
  *
  * @param {*} api_token 
@@ -46,7 +46,7 @@ export default function Baserow(api_token){
     async function getTable(tableID, { search = null, size = 100, page = 1, filters = null },) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/`,
+                url: `${API_ENDPOINT}${tableID}/`,
                 method: "get",
                 params:{
                     'user_field_names': true,
@@ -73,8 +73,11 @@ export default function Baserow(api_token){
     async function getRow(tableID, rowID) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}/?user_field_names=true`,
+                url: `${API_ENDPOINT}${tableID}/${rowID}/`,
                 method: "get",
+                params:{
+                    'user_field_names': true
+                },
                 headers: {
                     "Authorization": api_token
                 }
@@ -95,8 +98,11 @@ export default function Baserow(api_token){
 
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/?user_field_names=true`,
+                url: `${API_ENDPOINT}${tableID}/`,
                 method: "post",
+                params: {
+                    'user_field_names': true
+                },
                 headers: {
                     "Authorization": api_token,
                     "Content-Type": "application/json"
@@ -120,8 +126,11 @@ export default function Baserow(api_token){
     async function updateRow(tableID, rowID, row_fields) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
+                url: `${API_ENDPOINT}${tableID}/${rowID}/`,
                 method: "patch",
+                params:{
+                    'user_field_names': true
+                },
                 headers: {
                     "Authorization": api_token,
                     "Content-Type": "application/json"
@@ -143,8 +152,11 @@ export default function Baserow(api_token){
     async function deleteRow(tableID, rowID) {
         try {
             let response = await axios({
-                url: `https://api.baserow.io/api/database/rows/table/${tableID}/${rowID}?user_field_names=true`,
+                url: `${API_ENDPOINT}${tableID}/${rowID}/`,
                 method: "delete",
+                params:{
+                    'user_field_names': true,
+                },
                 headers: {
                     "Authorization": api_token,
                     "Content-Type": "application/json"
@@ -171,7 +183,7 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message)
+            console.log(error.message);
         }
     }
 }
