@@ -3,7 +3,8 @@
 ## Baserow.js:
 
 **Description:**  
-The base JavaScript object, which contains methods for CRUD operations on a generic Baserow database. It wraps the Axios HTTP requests for easy use.
+contains the base object which has methods for CRUD operations on a generic Baserow database. It wraps the Axios HTTP requests for easy use. Each instance you create with the Baserow() function should connect to a different Baserow database.
+It is recommended that you do not use this object directly but create a more specific object that wraps this object like how SMCBaserow is set up.
 
 **Methods:**
 
@@ -23,7 +24,7 @@ The base JavaScript object, which contains methods for CRUD operations on a gene
       "filters": "String"
     }
     ```
-  - **Returns:** A JSON object with next, prev links, and data containing a list of objects.
+  - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects.
 
 - `getRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
@@ -33,23 +34,23 @@ The base JavaScript object, which contains methods for CRUD operations on a gene
 - `createRow(tableID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** JSON object of the created row.
+  - **Returns:** A Promise resolving to a JSON object of the created row.
 
 - `updateRow(tableID, rowID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of a specific row in the table to modify.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** JSON object of the modified row.
+  - **Returns:** A Promise resolving to a JSON object of the modified row.
 
 - `deleteRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of the row to delete in the given table.
-  - **Returns:** void.
+  - **Returns:** A Promise resolving to void.
 
 - `getAllPages(tableID, [options])`:
   - **tableID:** ID of the table in Baserow.
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 ## SMCBaserow.js:
 
@@ -72,11 +73,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getSMCPerson(rowID)`:
   - **rowID:** ID of a specific row on the SMCPeople Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 - `getRoomsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -89,11 +90,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getRoom(rowID)`:
   - **rowID:** ID of a specific row on the SMCRooms Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 - `getEventsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -106,11 +107,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getEvent(rowID)`:
   - **rowID:** ID of a specific row on the SMCEvents Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 - `getGearsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -123,11 +124,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getGear(rowID)`:
   - **rowID:** ID of a specific row on the SMCGears Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 - `getManufacturersTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -140,11 +141,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getManufacturer(rowID)`:
   - **rowID:** ID of a specific row on the SMCManufacturers Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 - `getClassesTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -157,11 +158,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
 
 - `getClass(rowID)`:
   - **rowID:** ID of a specific row on the SMCClasses Table.
-  - **Returns:** JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row.
 
 ## SMCBaserowUtils.js:
 
@@ -213,4 +214,4 @@ Views.js holds predefined filters for the SMCBaserow object. These filters are c
   - **UPCOMING:** Filters for retrieving upcoming events.
 
 **Note:**  
-If unsure about the filters' functionality, use Postman to test them and verify they are filtering the correct
+If unsure about the filters' functionality, use Postman to test them and verify they are filtering the correct rows.
