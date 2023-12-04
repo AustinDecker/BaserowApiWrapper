@@ -217,3 +217,41 @@ Views.js holds predefined filters for the SMCBaserow object. These filters are c
 If unsure about the filters' functionality, use Postman to test them and verify they are filtering the correct rows.
 
 Refer to your Generated Baserow API docs that are provided for you by Baserow. They have example HTTP requests, response structure examples, error code examples, and provide an easy-to-understand layout of how to use their API. The BaserowApiWrapper uses this API and it's recommended you refer to both our docs and Baserow’s docs to use the wrapper effectively.
+
+## Examples
+`Here is a few examples using the SMCBaserowInstance object.`
+```javascript
+import {smcPeopleViews} from "Views.js"
+import SMCBaserow from "SMCBaserow.js"
+
+//getting all people
+//option defaults: page:1, size: 100, search: null, filters: null
+const smcBaserowInstance = SMCBaserow();
+
+//its recommended you wrap this code in its own function.
+smcBaserowInstance.getSMCPeopleTable()
+    .then((pages) => {
+        let people = [];
+        //pages is a 2d array. Each index represents a single page with at most 100 people per page.
+        pages.forEach(page =>{
+            page.forEach(person =>{
+                people.push(person);
+            }
+        })
+        console.log(people);
+    }
+
+//getting faculty members only, setting custom options
+
+let facultyFilter = JSON.stringify(SMCPeopleViews.FACULTY);
+smcBaserowInstance.getSMCPeopleTable({filters: facultyFilter, size: 50})
+    .then(pages => {
+        let faculty = [];
+        pages.forEach(page => {
+            page.forEach(person => {
+                faculty.push(person);
+            })
+        }
+        console.log(faculty);
+    })
+```
