@@ -237,12 +237,11 @@ smcBaserowInstance.getSMCPeopleTable()
             page.forEach(person =>{
                 people.push(person);
             }
-        })
+        });
         console.log(people);
     }
 
 //getting faculty members only, setting custom options
-
 let facultyFilter = JSON.stringify(SMCPeopleViews.FACULTY);
 smcBaserowInstance.getSMCPeopleTable({filters: facultyFilter, size: 50})
     .then(pages => {
@@ -250,8 +249,29 @@ smcBaserowInstance.getSMCPeopleTable({filters: facultyFilter, size: 50})
         pages.forEach(page => {
             page.forEach(person => {
                 faculty.push(person);
-            })
-        }
+            });
+        });
         console.log(faculty);
     })
+
+//use the search option param for very simple filtering.
+//gets all rows that contain "john smith" in any of the row fields
+smcBaserowInstance.getSMCPeopleTable({search: "John Smith"})
+    .then(pages => {
+        let people = [];
+        pages.forEach(page => {
+            page.forEach(person =>{
+                people.push(person);
+            });
+        });
+        console.log(people);
+    });
+
+//to get a specific row from a specific table, use getSMCPerson or similar methods.
+//gets the row with the row id of 1.
+smcBaserowInstance.getSMCPerson(1)
+    .then((person) =>{
+        console.log(person);
+    });
 ```
+`Its recommended you make a utilities javascript file that does all of the above things for you.`
