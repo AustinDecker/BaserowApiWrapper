@@ -22,7 +22,8 @@ export default function Baserow(api_token){
             let data = await getTable(tableID, {search, size, page, filters});
 
             if(data.status){
-                return;
+                //error object
+                return data;
             }
 
             let next = data.next;
@@ -31,8 +32,13 @@ export default function Baserow(api_token){
             while(next !== null){
                 console.log(next);
                 let newData = await getNextPage(next);
+
+                if(newData.status){
+                    //error object
+                    return data;
+                }
+
                 pages.push(newData.results);
-    
                 next = newData.next;
             }
             return pages;
@@ -198,7 +204,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
     }
 }
