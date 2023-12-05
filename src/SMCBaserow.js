@@ -11,6 +11,7 @@ const TableIDs =
     SMCMANUFACTURERS: 212083,
     SMCCLASSES: 212084
 };
+Object.freeze(TableIDs);
 
 /**
  * 
@@ -138,4 +139,4 @@ function SMCBaserow(){
     })  
     return SMCBaseRowInstance;
 }
-export default SMCBaserow;
+export {SMCBaserow, TableIDs};
