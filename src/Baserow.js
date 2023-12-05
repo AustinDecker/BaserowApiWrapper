@@ -20,6 +20,11 @@ export default function Baserow(api_token){
         deleteRow,
         getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
             let data = await getTable(tableID, {search, size, page, filters});
+
+            if(data.status){
+                return;
+            }
+
             let next = data.next;
             let pages = [data.results];
 
@@ -61,7 +66,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
     }
     /**
@@ -84,7 +91,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
 
     }
@@ -111,7 +120,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
 
     }
@@ -139,7 +150,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
     }
 
@@ -165,7 +178,9 @@ export default function Baserow(api_token){
             })
             return response.data;
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return errorObj;
         }
     }
 
