@@ -85,7 +85,11 @@ async function GetUpcomingEvents(){
     }
 }
 async function createNewEvent(event){
-    return await smcBaserowInstance.createRow(TableIDs.SMCEVENTS, event);
+    try {
+        return await smcBaserowInstance.createRow(TableIDs.SMCEVENTS, event);
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 function extractPages(pages){
