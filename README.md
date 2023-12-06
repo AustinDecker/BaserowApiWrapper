@@ -26,12 +26,12 @@ It is recommended that you do not use this object directly but create a more spe
     }
     ```
   - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects, or a an error object with the format:
-  ```javascript
-  {
-    statusText: String,
-    status: Number
-  }
-  ```
+    ```javascript
+    {
+      statusText: String,
+      status: Number
+    }
+    ```
 
 - `getRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
