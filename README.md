@@ -24,33 +24,33 @@ It is recommended that you do not use this object directly but create a more spe
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects.
+  - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects, or a an error object with an error code and error message.
 
 - `getRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of a specific row in a table.
-  - **Returns:** JSON object of row fields.
+  - **Returns:** A Promise resolving to a JSON object of row fields or an error object.
 
 - `createRow(tableID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** A Promise resolving to a JSON object of the created row.
+  - **Returns:** A Promise resolving to a JSON object of the created row or an error object.
 
 - `updateRow(tableID, rowID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of a specific row in the table to modify.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** A Promise resolving to a JSON object of the modified row.
+  - **Returns:** A Promise resolving to a JSON object of the modified row or an error object
 
 - `deleteRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of the row to delete in the given table.
-  - **Returns:** A Promise resolving to void.
+  - **Returns:** A Promise resolving to void or an error object.
 
 - `getAllPages(tableID, [options])`:
   - **tableID:** ID of the table in Baserow.
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects or an error object.
 
 ## SMCBaserow.js:
 
@@ -73,11 +73,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects, or an error object.
 
 - `getSMCPerson(rowID)`:
   - **rowID:** ID of a specific row on the SMCPeople Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row or an error object.
 
 - `getRoomsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -90,7 +90,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects, or an error object.
 
 - `getRoom(rowID)`:
   - **rowID:** ID of a specific row on the SMCRooms Table.
@@ -107,11 +107,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects, or an error object.
 
 - `getEvent(rowID)`:
   - **rowID:** ID of a specific row on the SMCEvents Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row or an error object.
 
 - `getGearsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -124,11 +124,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects, or an error object.
 
 - `getGear(rowID)`:
   - **rowID:** ID of a specific row on the SMCGears Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row, or an error object.
 
 - `getManufacturersTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -145,7 +145,7 @@ A specific implementation of the BaserowInstance object representing a specific 
 
 - `getManufacturer(rowID)`:
   - **rowID:** ID of a specific row on the SMCManufacturers Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row or an error object..
 
 - `getClassesTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -158,11 +158,11 @@ A specific implementation of the BaserowInstance object representing a specific 
       "filters": "String"
     }
     ```
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects, or an error object.
 
 - `getClass(rowID)`:
   - **rowID:** ID of a specific row on the SMCClasses Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row or an error object.
 
 ## SMCBaserowUtils.js:
 
@@ -222,7 +222,7 @@ Refer to your Generated Baserow API docs that are provided for you by Baserow. T
 `Here is a few examples using the SMCBaserowInstance object.`
 ```javascript
 import {smcPeopleViews} from "Views.js"
-import SMCBaserow from "SMCBaserow.js"
+import {SMCBaserow, TableIDs} from "SMCBaserow.js"
 
 //getting all people
 //option defaults: page:1, size: 100, search: null, filters: null
@@ -273,5 +273,17 @@ smcBaserowInstance.getSMCPerson(1)
     .then((person) =>{
         console.log(person);
     });
+
+//To add a new row to baserow
+//row fields are specific to the database. Refer to your generated Baserow Database API
+smcBaserowInstance.createRow(TableIDs.SMCPEOPLE, {
+    "First Name": "Bill",
+    "Last Name": "Gates",
+    "Email": "BGates@gmail.com",
+    "Phone": "+1-260-123-4567",
+    "Role": ["Guest 👥"],
+    "Gear Access": "Gear Level 3",
+    "Room Access": "Room Access 3"
+})
 ```
 `Its recommended you make a utilities javascript file that does all of the above things for you.`
