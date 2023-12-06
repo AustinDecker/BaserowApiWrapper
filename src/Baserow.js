@@ -29,7 +29,6 @@ export default function Baserow(api_token){
             let pages = [data[1].results];
 
             while(next !== null){
-                console.log(next);
                 let newData = await getNextPage(next);
 
                 if(newData[0]){
