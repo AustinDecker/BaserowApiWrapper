@@ -104,7 +104,7 @@ function extractPages(pages){
 
 }
 
-export default {
+export {
     GetFaculty,
     GetPeopleByRole,
     GetStudents,

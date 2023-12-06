@@ -27,116 +27,183 @@ function SMCBaserow(){
          * 
          * @param {*} options 
          * @returns json data
+         * @throws error
          */
         getSMCPeopleTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCPEOPLE, options);
-            return data;
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
 
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getSMCPerson: async function(rowID){
-            return await this.getRow(TableIDs.SMCPEOPLE, rowID);
+
+            data =  await this.getRow(TableIDs.SMCPEOPLE, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} options 
          * @returns json data
+         * @throws error
          */
         getRoomsTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCROOMS, options);
-            return data;
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getRoom: async function(rowID){
-            return await this.getRow(TableIDs.SMCROOMS, rowID);
+            let data = await this.getRow(TableIDs.SMCROOMS, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} options 
          * @returns json data
+         * @throws error
          */
         getEventsTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCEVENTS, options);
-            return data;
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getEvent: async function(rowID){
-            return await this.getRow(TableIDs.SMCEVENTS, rowID);
+            let data = await this.getRow(TableIDs.SMCEVENTS, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} options 
          * @returns json data
+         * @throws error
          */
         getGearsTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCGEARS, options);
-            return data;
+            
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getGear: async function(rowID){
-            return await this.getRow(TableIDs.SMCGEARS, rowID);
+            let data = await this.getRow(TableIDs.SMCGEARS, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} options 
          * @returns json data
+         * @throws error
          */
         getManufacturersTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCMANUFACTURERS, options);
-            return data;
+            
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getManufacturer: async function(rowID){
-            return await this.getRow(TableIDs.SMCMANUFACTURERS, rowID);
+            let data = await this.getRow(TableIDs.SMCMANUFACTURERS, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} options 
-         * @returns jjson data
+         * @returns json data
+         * @throws error
          */
         getClassesTable: async function(options = {}){
             let data = await this.getAllPages(TableIDs.SMCCLASSES, options);
-            return data;
+            
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
         
         /**
          * 
          * @param {*} rowID 
          * @returns json data
+         * @throws error
          */
         getClass: async function(rowID){
-            return await this.getRow(TableIDs.SMCCLASSES, rowID);
+            let data = await this.getRow(TableIDs.SMCCLASSES, rowID);
+
+            if(data[0]){
+                throw new Error(`Bad arguments: ${data[0].statusText}`);
+            }
+            return data[1];
         },
     })  
     return SMCBaseRowInstance;
 }
-export default {SMCBaserow, TableIDs};
+export {SMCBaserow, TableIDs};

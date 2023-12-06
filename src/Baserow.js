@@ -22,8 +22,7 @@ export default function Baserow(api_token){
             let data = await getTable(tableID, {search, size, page, filters});
 
             if(data[0]){
-                //error object
-                throw new Error(data[0].statusText);
+                return [data[0], null];
             }
 
             let next = data[1].next;
@@ -34,13 +33,13 @@ export default function Baserow(api_token){
                 let newData = await getNextPage(next);
 
                 if(newData[0]){
-                    throw new Error(newData[0].statusText);
+                    return [newdata[0], null];
                 }
 
                 pages.push(newData[1].results);
                 next = newData[1].next;
             }
-            return pages;
+            return [null, pages];
         }
 
     }
