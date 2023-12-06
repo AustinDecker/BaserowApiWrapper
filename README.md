@@ -163,6 +163,15 @@ A specific implementation of the BaserowInstance object representing a specific 
 - `getClass(rowID)`:
   - **rowID:** ID of a specific row on the SMCClasses Table.
   - **Returns:** A Promise resolving to a JSON object of the specific row or an error object.
+ 
+**Constants:**
+- `TableIDs`
+  - `SMCPEOPLE` - Table ID for the SMCPeople table
+  - `SMCROOMS`  - Table ID for the SMCRooms table
+  - `SMCEVENTS` - Table ID for the Events table
+  - `SMCGEARS`  - Table ID for the Gears table
+  - `SMCMANUFACTURERS` - Table ID for the Manufacturers table 
+  - `SMCCLASSES` - Table ID for the Classes table
 
 ## SMCBaserowUtils.js:
 
@@ -228,7 +237,7 @@ import {SMCBaserow, TableIDs} from "SMCBaserow.js"
 //option defaults: page:1, size: 100, search: null, filters: null
 const smcBaserowInstance = SMCBaserow();
 
-//its recommended you wrap this code in its own function.
+//it's recommended you wrap this code in its own function.
 smcBaserowInstance.getSMCPeopleTable()
     .then((pages) => {
         let people = [];
@@ -287,3 +296,35 @@ smcBaserowInstance.createRow(TableIDs.SMCPEOPLE, {
 })
 ```
 `Its recommended you make a utilities javascript file that does all of the above things for you.`
+
+## Baserow.js Examples
+```javascript
+import Baserow from "./Baserow.js"
+const API_KEY //fill using .env or have a constant
+const TABLE_ID = 1234;
+const ROW_ID = 5;
+
+//create BaserowInstance Object
+const myBaserowDatabase = Baserow(API_KEY);
+
+//You can now manipulate your baserow database. the BaserowInstance object has basic methods for creating, reading, updating, and deleting rows and tables.
+//get page of data
+//pass an empty object '{}' if you want to use the default options which are: size: null, page: 1, filters: null, size:100
+
+//res will either be the page of data on the given table with the TABLE_ID or an error object that signifies bad data being sent to the function.
+let res = await myBaserowDatabase.getTable(TABLE_ID, {});
+
+//you can also use the function in this format:
+myBaserowDatabase.getTable(TABLE_ID, {})
+    .then(res =>{
+        console.log(res);
+    });
+
+//to get a specific row
+myBaserowDatabase.getRow(TABLE_ID, ROW_ID, {})
+    .then(res =>{
+        console.log(res);
+    });
+
+
+```
