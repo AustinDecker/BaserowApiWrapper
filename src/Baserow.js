@@ -21,25 +21,24 @@ export default function Baserow(api_token){
         getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
             let data = await getTable(tableID, {search, size, page, filters});
 
-            if(data.status){
+            if(data[0]){
                 //error object
-                return data;
+                throw new Error(data[0].statusText);
             }
 
-            let next = data.next;
-            let pages = [data.results];
+            let next = data[1].next;
+            let pages = [data[1].results];
 
             while(next !== null){
                 console.log(next);
                 let newData = await getNextPage(next);
 
-                if(newData.status){
-                    //error object
-                    return data;
+                if(newData[0]){
+                    throw new Error(newData[0].statusText);
                 }
 
-                pages.push(newData.results);
-                next = newData.next;
+                pages.push(newData[1].results);
+                next = newData[1].next;
             }
             return pages;
         }
@@ -70,11 +69,11 @@ export default function Baserow(api_token){
                     "Authorization": api_token
                 },
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
     }
     /**
@@ -95,11 +94,11 @@ export default function Baserow(api_token){
                     "Authorization": api_token
                 }
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
 
     }
@@ -124,11 +123,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
 
     }
@@ -154,11 +153,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
     }
 
@@ -182,11 +181,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
     }
 
@@ -202,11 +201,11 @@ export default function Baserow(api_token){
                     "Authorization": api_token
                 },
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
             let errorObj = {status: error.response.status, statusText: error.response.statusText};
             console.log(error.message)
-            return errorObj;
+            return [errorObj, null];
         }
     }
 }
