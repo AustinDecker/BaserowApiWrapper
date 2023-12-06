@@ -139,4 +139,4 @@ function SMCBaserow(){
     })  
     return SMCBaseRowInstance;
 }
-export {SMCBaserow, TableIDs};
+export default {SMCBaserow, TableIDs};

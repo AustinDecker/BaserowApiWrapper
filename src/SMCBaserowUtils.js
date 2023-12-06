@@ -1,4 +1,4 @@
-import { SmcPeopleViews, RoomsView, EventsView } from "./Views";
+import { SmcPeopleViews, RoomsView, EventsView } from "./Views.js";
 import {SMCBaserow, TableIDs} from "./SMCBaserow.js";
 
 const smcBaserowInstance = SMCBaserow();
