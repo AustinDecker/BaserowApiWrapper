@@ -22,7 +22,8 @@ It is recommended that you do not use this object directly but create a more spe
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects, or a an error object with the format:
@@ -77,7 +78,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
@@ -95,7 +97,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
@@ -114,7 +117,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
@@ -133,7 +137,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
@@ -152,7 +157,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
@@ -171,7 +177,8 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.

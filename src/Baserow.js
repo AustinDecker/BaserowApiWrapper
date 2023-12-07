@@ -18,8 +18,8 @@ export default function Baserow(api_token){
         createRow,
         updateRow,
         deleteRow,
-        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
-            let data = await getTable(tableID, {search, size, page, filters});
+        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null, exclude = null}){
+            let data = await getTable(tableID, {search, size, page, filters, exclude});
 
             if(data[0]){
                 return [data[0], null];
@@ -51,8 +51,13 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null },) {
+    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null, exclude = null },) {
+        /*
+        Axios does not add the query variables to the query string if the value is null.
+        hence alot of the default values are null because there is no default value on baserow.
+        */
         try {
+            let excludeString = Array.isArray(exclude) ? exclude.join(","): null;
             let response = await axios({
                 url: `${API_ENDPOINT}${tableID}/`,
                 method: "get",
@@ -61,7 +66,8 @@ export default function Baserow(api_token){
                     'search': search,
                     'size': size,
                     'page': page,
-                    'filters': filters
+                    'filters': filters,
+                    'exclude' : excludeString
                 },
                 headers: {
                     "Authorization": api_token
@@ -206,4 +212,5 @@ export default function Baserow(api_token){
             return [errorObj, null];
         }
     }
+
 }
