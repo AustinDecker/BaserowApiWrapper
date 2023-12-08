@@ -267,7 +267,7 @@ import {smcPeopleViews} from "Views.js"
 import {SMCBaserow, TableIDs} from "SMCBaserow.js"
 
 //getting all people
-//option defaults: page:1, size: 100, search: null, filters: null
+//option defaults: page:1, size: 100, search: null, filters: null, include: null, exclude: null
 const smcBaserowInstance = SMCBaserow();
 
 //it's recommended you wrap this code in its own function.
@@ -342,14 +342,14 @@ const myBaserowDatabase = Baserow(API_KEY);
 
 //You can now manipulate your baserow database. the BaserowInstance object has basic methods for creating, reading, updating, and deleting rows and tables.
 //get page of data
-//pass an empty object '{}' if you want to use the default options which are: size: null, page: 1, filters: null, size:100
+//pass an empty object '{}' if you want to use the default options which are: size: null, page: 1, filters: null, size:100, search: null, exclude: null, include: null
 
 //res will either be the page of data on the given table with the TABLE_ID or an error object that signifies bad data being sent to the function.
 let res = await myBaserowDatabase.getTable(TABLE_ID, {});
 
 //you can also use the function in this format:
-// res is an array which may contain either an error or data in the format [error, data].
-// if the data returns successfully the array will be [null, data], otherwise [error, null];
+// res is an array that may contain either an error or data in the format [error, data].
+//If the data returns successfully the array will be [null, data], otherwise [error, null];
 myBaserowDatabase.getTable(TABLE_ID, {})
     .then(res =>{
         console.log(res[1]);
