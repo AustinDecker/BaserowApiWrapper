@@ -261,7 +261,7 @@ If unsure about the filters' functionality, use Postman to test them and verify 
 Refer to your Generated Baserow API docs that are provided for you by Baserow. They have example HTTP requests, response structure examples, error code examples, and provide an easy-to-understand layout of how to use their API. The BaserowApiWrapper uses this API and it's recommended you refer to both our docs and Baserow’s docs to use the wrapper effectively.
 
 ## Examples
-`Here is a few examples using the SMCBaserowInstance object.`
+`Here are a few examples using the SMCBaserowInstance object.`
 ```javascript
 import {smcPeopleViews} from "Views.js"
 import {SMCBaserow, TableIDs} from "SMCBaserow.js"
