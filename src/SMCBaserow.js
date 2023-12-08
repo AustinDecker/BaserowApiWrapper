@@ -1,6 +1,6 @@
 import Baserow from "../src/Baserow.js";
 
-const API_KEY = "Token TzDtpdxtxo0iUq8HKNB2Eisv433d2Auy"; //would be moved to .env later
+const API_KEY = ""; //would be moved to .env later
 
 const TableIDs = 
 {
