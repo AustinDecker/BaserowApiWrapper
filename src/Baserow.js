@@ -18,19 +18,27 @@ export default function Baserow(api_token){
         createRow,
         updateRow,
         deleteRow,
-        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null}){
-            let data = await getTable(tableID, {search, size, page, filters});
-            let next = data.next;
-            let pages = [data.results];
+        getAllPages: async function(tableID, {search=null, size=100, page=1, filters=null, include = null, exclude = null}){
+            let data = await getTable(tableID, {search, size, page, filters, exclude});
+
+            if(data[0]){
+                return [data[0], null];
+            }
+
+            let next = data[1].next;
+            let pages = [data[1].results];
 
             while(next !== null){
-                console.log(next);
                 let newData = await getNextPage(next);
-                pages.push(newData.results);
-    
-                next = newData.next;
+
+                if(newData[0]){
+                    return [newdata[0], null];
+                }
+
+                pages.push(newData[1].results);
+                next = newData[1].next;
             }
-            return pages;
+            return [null, pages];
         }
 
     }
@@ -43,8 +51,15 @@ export default function Baserow(api_token){
      * @param {*} options
      * @returns {*} json data
      */
-    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null },) {
+    async function getTable(tableID, { search = null, size = 100, page = 1, filters = null, include = null, exclude = null },) {
+        /*
+        Axios does not add the query variables to the query string if the value is null.
+        hence alot of the default values are null because there is no default value on baserow.
+        */
         try {
+            let excludeString = Array.isArray(exclude) ? exclude.join(","): null;
+            let includeString = Array.isArray(include) ? include.join(","): null;
+            
             let response = await axios({
                 url: `${API_ENDPOINT}${tableID}/`,
                 method: "get",
@@ -53,15 +68,19 @@ export default function Baserow(api_token){
                     'search': search,
                     'size': size,
                     'page': page,
-                    'filters': filters
+                    'filters': filters,
+                    'include': includeString,
+                    'exclude' : excludeString
                 },
                 headers: {
                     "Authorization": api_token
                 },
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
     }
     /**
@@ -82,9 +101,11 @@ export default function Baserow(api_token){
                     "Authorization": api_token
                 }
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
 
     }
@@ -109,9 +130,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
 
     }
@@ -137,9 +160,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
     }
 
@@ -163,9 +188,11 @@ export default function Baserow(api_token){
                 },
                 data: JSON.stringify(row_fields)
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
     }
 
@@ -181,9 +208,12 @@ export default function Baserow(api_token){
                     "Authorization": api_token
                 },
             })
-            return response.data;
+            return [null, response.data];
         } catch (error) {
-            console.log(error.message);
+            let errorObj = {status: error.response.status, statusText: error.response.statusText};
+            console.log(error.message)
+            return [errorObj, null];
         }
     }
+
 }

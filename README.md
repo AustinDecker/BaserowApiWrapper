@@ -12,6 +12,7 @@ It is recommended that you do not use this object directly but create a more spe
   - **API_KEY:** Your Baserow API key.
   - **Returns:** BaserowInstance.
 
+**Note:** all functions return a promise in the format of either `[null, data]` or `[error, null]`
 - `getTable(tableID, [options])`:
   - **tableID:** ID of the table in Baserow.
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -21,36 +22,44 @@ It is recommended that you do not use this object directly but create a more spe
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
-  - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects.
+  - **Returns:** A Promise resolving to a JSON object with next, prev links, and data containing a list of objects, or a an error object with the format:
+    ```javascript
+    {
+      statusText: String,
+      status: Number
+    }
+    ```
 
 - `getRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of a specific row in a table.
-  - **Returns:** JSON object of row fields.
+  - **Returns:** A Promise resolving to a JSON object of row fields or an error object.
 
 - `createRow(tableID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** A Promise resolving to a JSON object of the created row.
+  - **Returns:** A Promise resolving to a JSON object of the created row or an error object.
 
 - `updateRow(tableID, rowID, rowFields)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of a specific row in the table to modify.
   - **rowFields:** Key-value pair object corresponding to row fields.
-  - **Returns:** A Promise resolving to a JSON object of the modified row.
+  - **Returns:** A Promise resolving to a JSON object of the modified row or an error object
 
 - `deleteRow(tableID, rowID)`:
   - **tableID:** ID of the table in Baserow.
   - **rowID:** ID of the row to delete in the given table.
-  - **Returns:** A Promise resolving to void.
+  - **Returns:** A Promise resolving to void or an error object.
 
 - `getAllPages(tableID, [options])`:
   - **tableID:** ID of the table in Baserow.
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
-  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects or an error object.
 
 ## SMCBaserow.js:
 
@@ -70,10 +79,12 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getSMCPerson(rowID)`:
   - **rowID:** ID of a specific row on the SMCPeople Table.
@@ -87,14 +98,18 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getRoom(rowID)`:
   - **rowID:** ID of a specific row on the SMCRooms Table.
   - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **throws:** A potential Error.
 
 - `getEventsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -104,14 +119,18 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getEvent(rowID)`:
   - **rowID:** ID of a specific row on the SMCEvents Table.
-  - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **Returns:** A Promise resolving to a JSON object of the specific row or an error object.
+  - **throws:** A potential Error.
 
 - `getGearsTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -121,14 +140,18 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getGear(rowID)`:
   - **rowID:** ID of a specific row on the SMCGears Table.
   - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **throws:** A potential Error.
 
 - `getManufacturersTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -138,14 +161,18 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getManufacturer(rowID)`:
   - **rowID:** ID of a specific row on the SMCManufacturers Table.
   - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **throws:** A potential Error.
 
 - `getClassesTable([options])`:
   - **options:** A key-value pair of optional options to manipulate the HTTP Request.
@@ -155,14 +182,27 @@ A specific implementation of the BaserowInstance object representing a specific 
       "search": "String",
       "size": "Number",
       "page": "Number",
-      "filters": "String"
+      "filters": "String",
+      "include": "[String]",
+      "exclude": "[String]"
     }
     ```
   - **Returns:** A Promise resolving to a 2D array with each index representing a page, containing a list of objects.
+  - **throws:** A potential Error.
 
 - `getClass(rowID)`:
   - **rowID:** ID of a specific row on the SMCClasses Table.
   - **Returns:** A Promise resolving to a JSON object of the specific row.
+  - **throws:** A potential Error.
+ 
+**Constants:**
+- `TableIDs`
+  - `SMCPEOPLE` - Table ID for the SMCPeople table
+  - `SMCROOMS`  - Table ID for the SMCRooms table
+  - `SMCEVENTS` - Table ID for the Events table
+  - `SMCGEARS`  - Table ID for the Gears table
+  - `SMCMANUFACTURERS` - Table ID for the Manufacturers table 
+  - `SMCCLASSES` - Table ID for the Classes table
 
 ## SMCBaserowUtils.js:
 
@@ -170,7 +210,9 @@ A specific implementation of the BaserowInstance object representing a specific 
 Utility functions for interacting with the SMCBaserow database. These functions provide high-level abstractions for common tasks.
 
 **Methods:**
-
+- `GetPeople()`: 
+  - **Returns:** A Promise resolving to an array of all people in the SMCPeople table
+  
 - `GetFaculty()`:  
   - **Returns:** A Promise resolving to an array of faculty members.
 
@@ -222,13 +264,13 @@ Refer to your Generated Baserow API docs that are provided for you by Baserow. T
 `Here is a few examples using the SMCBaserowInstance object.`
 ```javascript
 import {smcPeopleViews} from "Views.js"
-import SMCBaserow from "SMCBaserow.js"
+import {SMCBaserow, TableIDs} from "SMCBaserow.js"
 
 //getting all people
 //option defaults: page:1, size: 100, search: null, filters: null
 const smcBaserowInstance = SMCBaserow();
 
-//its recommended you wrap this code in its own function.
+//it's recommended you wrap this code in its own function.
 smcBaserowInstance.getSMCPeopleTable()
     .then((pages) => {
         let people = [];
@@ -273,5 +315,51 @@ smcBaserowInstance.getSMCPerson(1)
     .then((person) =>{
         console.log(person);
     });
+
+//To add a new row to baserow
+//row fields are specific to the database. Refer to your generated Baserow Database API
+smcBaserowInstance.createRow(TableIDs.SMCPEOPLE, {
+    "First Name": "Bill",
+    "Last Name": "Gates",
+    "Email": "BGates@gmail.com",
+    "Phone": "+1-260-123-4567",
+    "Role": ["Guest 👥"],
+    "Gear Access": "Gear Level 3",
+    "Room Access": "Room Access 3"
+})
 ```
 `Its recommended you make a utilities javascript file that does all of the above things for you.`
+
+## Baserow.js Examples
+```javascript
+import Baserow from "./Baserow.js"
+const API_KEY //fill using .env or have a constant
+const TABLE_ID = 1234;
+const ROW_ID = 5;
+
+//create BaserowInstance Object
+const myBaserowDatabase = Baserow(API_KEY);
+
+//You can now manipulate your baserow database. the BaserowInstance object has basic methods for creating, reading, updating, and deleting rows and tables.
+//get page of data
+//pass an empty object '{}' if you want to use the default options which are: size: null, page: 1, filters: null, size:100
+
+//res will either be the page of data on the given table with the TABLE_ID or an error object that signifies bad data being sent to the function.
+let res = await myBaserowDatabase.getTable(TABLE_ID, {});
+
+//you can also use the function in this format:
+// res is an array which may contain either an error or data in the format [error, data].
+// if the data returns successfully the array will be [null, data], otherwise [error, null];
+myBaserowDatabase.getTable(TABLE_ID, {})
+    .then(res =>{
+        console.log(res[1]);
+    });
+
+//to get a specific row
+myBaserowDatabase.getRow(TABLE_ID, ROW_ID, {})
+    .then(res =>{
+        console.log(res[1]);
+    });
+
+
+```

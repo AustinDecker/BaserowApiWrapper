@@ -1,2 +1,2 @@
-import Baserow from "./src/Baserow";
+import Baserow from "./src/Baserow.js";
 export default Baserow;

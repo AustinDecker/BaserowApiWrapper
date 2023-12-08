@@ -1,5 +1,5 @@
 import { SmcPeopleViews, RoomsView, EventsView } from "./Views.js";
-import SMCBaserow from "./SMCBaserow.js";
+import {SMCBaserow, TableIDs} from "./SMCBaserow.js";
 
 const smcBaserowInstance = SMCBaserow();
 
@@ -10,6 +10,16 @@ async function GetFaculty(){
 
     } catch (err) {
         console.log(err.message)
+    }
+}
+
+async function GetPeople(){
+    try{
+        let pages = await smcBaserowInstance.getSMCPeopleTable();
+        return extractPages(pages);
+    }
+    catch (err){
+        console.log(err.message);
     }
 }
 
@@ -26,6 +36,23 @@ async function GetStudents(){
 async function GetBookableRooms(){
     try {
         let pages = await smcBaserowInstance.getRoomsTable({filters: JSON.stringify(RoomsView.BOOKABLE_EDIT_COLLAB_ROOMS)});
+        return extractPages(pages);
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+async function GetRehersalBookableRooms(){
+    try {
+        let pages = await smcBaserowInstance.getRoomsTable({filters: JSON.stringify(RoomsView.BOOKABLE_REHERSAL_ROOMS)});
+        return extractPages(pages);
+    } catch (err) {
+        console.log(err.message);
+    }
+}
+
+async function GetStudioBookableRooms(){
+    try {
+        let pages = await smcBaserowInstance.getRoomsTable({filters: JSON.stringify(RoomsView.BOOKABLE_STUDIO_ROOMS)});
         return extractPages(pages);
     } catch (err) {
         console.log(err.message);
@@ -57,6 +84,13 @@ async function GetUpcomingEvents(){
         console.log(err.message);
     }
 }
+async function createNewEvent(event){
+    try {
+        return await smcBaserowInstance.createRow(TableIDs.SMCEVENTS, event);
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 function extractPages(pages){
     let allObjects = [];
@@ -70,10 +104,13 @@ function extractPages(pages){
 
 }
 
-export default {
+export {
     GetFaculty,
     GetPeopleByRole,
     GetStudents,
     GetBookableRooms,
-    GetUpcomingEvents
+    GetRehersalBookableRooms,
+    GetStudioBookableRooms,
+    GetUpcomingEvents,
+    GetPeople,
 }

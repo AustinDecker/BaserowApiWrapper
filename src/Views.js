@@ -36,16 +36,19 @@ const SmcPeopleViews = {
     EDIT_SUITE_COLLAB_ACCESS: {"filter_type":"AND","filters":[{"type":"single_select_equal","field":"Gear Access","value":"1100740"},{"type":"single_select_equal","field":"Room Access","value":"1100741"}],"groups":[]},
 
 }
+Object.freeze(SmcPeopleViews);
 
 const RoomsView = {
     BOOKABLE_EDIT_COLLAB_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"},{"type":"multiple_select_has_not","field":"Purpose","value":"1100751"}],"groups":[{"filter_type":"OR","filters":[{"type":"multiple_select_has","field":"Purpose","value":"1100754"},{"type":"multiple_select_has","field":"Purpose","value":"1100752"},{"type":"multiple_select_has","field":"Purpose","value":"1100753"},{"type":"multiple_select_has","field":"Purpose","value":"1100755"}],"groups":[]}]},
     BOOKABLE_REHERSAL_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"},{"type":"multiple_select_has","field":"Purpose","value":"1100753"}],"groups":[]},
     BOOKABLE_STUDIO_ROOMS: {"filter_type":"AND","filters":[{"type":"boolean","field":"Bookable","value":"1"},{"type":"multiple_select_has","field":"Purpose","value":"1100751"}],"groups":[]},
 }
+Object.freeze(RoomsView);
 
 const EventsView = {
     UPCOMING: {"filter_type":"OR","filters":[{"type":"date_equals_today","field":"Start Time","value":"America/Indianapolis?"},{"type":"date_after_today","field":"Start Time","value":"America/Indianapolis?"}],"groups":[]}
 }
+Object.freeze(EventsView);
 
 export {
     SmcPeopleViews,
