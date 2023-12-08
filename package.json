@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "AustinDecker, jengledow, CollinFoord, Nguyen-Noah, linlatt576",
   "license": "ISC",
-  "description": ""
+  "description": "A javascript baserow api wrapper"
 }
