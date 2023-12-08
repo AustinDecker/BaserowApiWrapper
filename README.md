@@ -23,6 +23,7 @@ It is recommended that you do not use this object directly but create a more spe
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
@@ -98,6 +99,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
@@ -118,6 +120,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
@@ -138,6 +141,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
@@ -158,6 +162,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
@@ -178,6 +183,7 @@ A specific implementation of the BaserowInstance object representing a specific 
       "size": "Number",
       "page": "Number",
       "filters": "String",
+      "include": "[String]",
       "exclude": "[String]"
     }
     ```
