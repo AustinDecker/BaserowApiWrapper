@@ -210,7 +210,9 @@ A specific implementation of the BaserowInstance object representing a specific 
 Utility functions for interacting with the SMCBaserow database. These functions provide high-level abstractions for common tasks.
 
 **Methods:**
-
+- `GetPeople()`: 
+  - **Returns:** A Promise resolving to an array of all people in the SMCPeople table
+  
 - `GetFaculty()`:  
   - **Returns:** A Promise resolving to an array of faculty members.
 
