@@ -297,7 +297,7 @@ smcBaserowInstance.getSMCPeopleTable({filters: facultyFilter, size: 50})
     })
 
 //use the search option param for very simple filtering.
-//gets all rows that contain "john smith" in any of the row fields
+//gets all rows that contain "john Smith" in any of the row fields
 smcBaserowInstance.getSMCPeopleTable({search: "John Smith"})
     .then(pages => {
         let people = [];
@@ -363,3 +363,15 @@ myBaserowDatabase.getRow(TABLE_ID, ROW_ID, {})
 
 
 ```
+## Note to Future Devs:
+`Baserow.js` is the generic object for interacting with any baserow database. SMCBaserow is an extension of the Baserow.js object and is specific for SMC and its database. The files `SMCBaserow.js`, `Views.js`, and `SMCBaserowUtils.js` should eventually be moved into the SMC website when you plan to migrate from Airtable to Baserow. Our team already started implementing the SMCBaserow.js and SMCBaserowUtilities.js, but further development is still needed. Update the SMCBaserow.js file when more tables are added to the database. Update the SMCBaserowUtilities.js when you want to create specific functions for a specific use case. If you wish to add more static views/filters you can update the Views.js file.
+
+### Useful tools:
+- `Postman`: Good for testing the Baserow API endpoints and seeing how the JSON object is structured.
+- `Baserow database API`: The generated API provided by Baserow that is specific to your database is really helpful. Using it as well as our documentation will give you a full understanding of how to use our wrapper.
+- `Baserow filters builder`: You should use this to create the filters. It will prevent developer errors.
+
+### Update the README
+
+To the future team that works on adding more features to the wrapper or refactoring the code...
+**PLEASE PLEASE PLEASE** keep the README updated with the changes and modifications that you may implement.
